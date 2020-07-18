@@ -41,11 +41,11 @@
         <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <v-container>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
         <v-list-item @click.native="right = !right">
@@ -76,6 +76,11 @@ export default {
           icon: 'mdi-apps',
           title: 'Welcome',
           to: '/',
+        },
+        {
+          icon: 'mid-format-list-bulleted',
+          title: 'Attendees',
+          to: '/admin/attendees',
         },
         {
           icon: 'mdi-chart-bubble',
