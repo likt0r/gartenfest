@@ -1,8 +1,8 @@
 <template>
   <v-layout>
     <v-flex class="text-center">
-      <div v-if="typeof character !== 'undefined'">
-        <h1>Hallo Teilnehmer {{ character.name }}</h1>
+      <div v-if="!$apollo.queries.character.loading">
+        <h1>Hallo Teilnehmer {{ character.email }}</h1>
       </div>
     </v-flex>
   </v-layout>
@@ -22,11 +22,10 @@ export default {
   apollo: {
     character: {
       query: gql`
-        query getCharacter($id: ID) {
-          character(id: $id) {
+        query getAttendee($id: ID) {
+          attendee(id: $id) {
             id
-            name
-            gender
+            email
           }
         }
       `,

@@ -1,5 +1,4 @@
 import colors from 'vuetify/es5/util/colors'
-
 export default {
   /*
    ** Nuxt rendering mode
@@ -54,12 +53,14 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/apollo',
+    '@nuxtjs/auth',
   ],
 
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'https://rickandmortyapi.com/graphql',
+        httpEndpoint:
+          process.env.BACKEND_URL || 'http://localhost:1337/graphql',
       },
     },
   },
@@ -75,6 +76,7 @@ export default {
    */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    optionsPath: './vuetify.options.js',
     theme: {
       dark: true,
       themes: {
@@ -95,4 +97,37 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
+  serverMiddleware: [],
+  auth: {
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        token: {
+          property: 'access_token',
+          maxAge: 60,
+          // type: 'Bearer'
+        },
+        refreshToken: {
+          property: 'refresh_token',
+          data: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30,
+        },
+        endpoints: {
+          login: {
+            url: process.env.API_URL || 'http://localhost:1337/auth/local',
+            method: 'post',
+            propertyName: 'token',
+          },
+          user: false, //{ url: '/api/auth/user', method: 'get', propertyName: 'user' },
+        },
+        // tokenRequired: true,
+        // tokenType: 'bearer',
+        // globalToken: true,
+        // autoFetchUser: true
+      },
+    },
+  },
+  env: {
+    strapiBaseUri: process.env.API_URL || 'http://localhost:1337',
+  },
 }

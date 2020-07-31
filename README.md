@@ -18,3 +18,10 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+#Heroku Setup
+Deploy Hasura and postgres one click installer
+https://hasura.io/docs/1.0/graphql/manual/guides/deployment/heroku-one-click.html
+
+Secure Hansura
+https://hasura.io/docs/1.0/graphql/manual/deployment/heroku/securing-graphql-endpoint.html#heroku-secure

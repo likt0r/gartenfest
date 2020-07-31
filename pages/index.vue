@@ -1,6 +1,6 @@
 <template>
   <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
+    <v-flex xs12 sm6 md4 ml4>
       <div class="text-center">
         <logo />
         <vuetify-logo />
@@ -26,6 +26,7 @@ import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
 export default {
+  middleware: 'authenticated',
   components: {
     Logo,
     VuetifyLogo,
