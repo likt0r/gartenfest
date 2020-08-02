@@ -52,24 +52,22 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/apollo',
     '@nuxtjs/auth',
+    '@nuxtjs/strapi',
   ],
-
-  apollo: {
-    clientConfigs: {
-      default: {
-        httpEndpoint:
-          process.env.BACKEND_URL || 'http://localhost:1337/graphql',
-      },
-    },
-  },
 
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'http://localhost:1337/',
+  },
+
+  strapi: {
+    url: process.env.STRAPI_URL || 'http://localhost:1337',
+    entities: ['invitations', 'tickets'],
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
