@@ -2,7 +2,7 @@
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
-        <UserAuthForm buttonText="Login" :submitForm="loginUser" />
+        <UserAuthForm class="mx-2" buttonText="Login" :submitForm="loginUser" />
       </v-col>
     </v-row>
   </v-container>
