@@ -18,26 +18,28 @@ export default {
   components: {
     UserAuthForm,
   },
-  middleware({ store, redirect, $strapi }) {
-    if ($strapi.user) {
+  middleware({ store, redirect, $auth }) {
+    if ($auth.loggedIn) {
       return redirect('/')
     }
   },
   methods: {
     async registerUser(registrationinfo) {
       try {
-        await this.$strapi.register(registrationinfo)
+        await this.$axios.post('/auth/local/register', registrationinfo)
         this.$store.dispatch('snackbar/setSnackbar', {
-          text: `Thanks for registrating in, ${this.$strapi.user}`,
+          text: `Thanks for registrating in, ${this.$auth.user}`,
         })
-        this.$store.dispatch('user/login', this.$strapi.user)
         this.$router.push(
           `/${this.$route.query.invitation ? this.$route.query.invitation : ''}`
         )
       } catch (error) {
         this.$store.dispatch('snackbar/setSnackbar', {
           color: 'red',
-          text: 'There was an issue signing up.  Please try again.',
+          message:
+            typeof error.response.data.message === 'string'
+              ? error.response.data.message
+              : error.response.data.message[0].messages[0].message,
         })
       }
     },

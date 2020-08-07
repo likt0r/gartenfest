@@ -73,7 +73,6 @@ export default {
           event: this.invitation.event.id,
         })
       } catch (error) {
-        console.log(error.response)
         this.$store.dispatch('snackbar/setSnackbar', {
           color: 'red',
           text: error.response.data.message,

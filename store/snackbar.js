@@ -2,25 +2,21 @@ import shortid from 'shortid'
 
 export const state = () => ({
   snackbars: [],
+  snack: null,
 })
 
 export const mutations = {
-  SET_SNACKBAR(state, snackbar) {
-    state.snackbars = [snackbar]
-  },
-  DELETE_SNACKBAR(state, id) {
-    state.snackbars = state.snackbars.filter((snackbar) => snackbar.id !== id)
+  SET_SNACK(state, snack) {
+    state.snack = snack
   },
 }
 
 export const actions = {
-  setSnackbar({ commit }, snackbar) {
-    snackbar.showing = true
-    snackbar.id = shortid.generate()
-    snackbar.color = snackbar.color || 'success'
-    commit('SET_SNACKBAR', snackbar)
-  },
-  deleteSnackbar({ commit }, id) {
-    commit('DELETE_SNACKBAR', id)
+  setSnackbar({ commit }, { message, color }) {
+    const snack = {
+      message,
+      color: color || 'success',
+    }
+    commit('SET_SNACK', snack)
   },
 }

@@ -166,7 +166,7 @@ export default {
       } catch (error) {
         this.$store.dispatch('snackbar/setSnackbar', {
           color: 'red',
-          text: error.response.data.message,
+          message: error.response.data.message,
         })
       }
       this.dialog = false
@@ -179,7 +179,7 @@ export default {
         this.data = result
       } catch (error) {
         this.$store.dispatch('snackbar/setSnackbar', {
-          color: 'red',
+          message: 'red',
           text: error.response.data.message,
         })
       }

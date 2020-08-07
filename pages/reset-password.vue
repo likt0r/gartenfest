@@ -25,7 +25,9 @@
           <v-row justify="space-between" class="align-baseline ml-0 mt-4">
             <v-btn
               @click="resetPassword()"
-              :disabled="!valid && password === passwordConfirmation"
+              :disabled="
+                !(password.length >= 8 && password === passwordConfirmation)
+              "
               >Password setzen</v-btn
             >
           </v-row>
@@ -61,11 +63,21 @@ export default {
   },
   methods: {
     async resetPassword() {
-      await this.$axios.post('/auth/reset-password', {
-        code: this.$route.query.code,
-        password: this.password,
-        passwordConfirmation: this.passwordConfirmation,
-      })
+      try {
+        await this.$axios.post('/auth/reset-password', {
+          code: this.$route.query.code,
+          password: this.password,
+          passwordConfirmation: this.passwordConfirmation,
+        })
+      } catch (error) {
+        this.$store.dispatch('snackbar/setSnackbar', {
+          color: 'red',
+          message:
+            typeof error.response.data.message === 'string'
+              ? error.response.data.message
+              : error.response.data.message[0].messages[0].message,
+        })
+      }
       this.$router.push('/')
     },
   },

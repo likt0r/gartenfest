@@ -35,10 +35,12 @@ export default {
           `/${this.$route.query.invitation ? this.$route.query.invitation : ''}`
         )
       } catch (error) {
-        console.log(error.message)
         this.$store.dispatch('snackbar/setSnackbar', {
           color: 'red',
-          text: error.message,
+          message:
+            typeof error.response.data.message === 'string'
+              ? error.response.data.message
+              : error.response.data.message[0].messages[0].message,
         })
       }
     },

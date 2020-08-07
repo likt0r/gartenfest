@@ -6,20 +6,21 @@
         <span @click="logout()" v-ripple>Ausloggen</span>
       </v-system-bar>
     </div>
+    <TheSnackbar />
+    <SnackBar />
     <v-main>
       <nuxt />
     </v-main>
-
-    <TheSnackbar />
   </v-app>
 </template>
 
 <script>
 import TheSnackbar from '@/components/TheSnackbar'
-
+import SnackBar from '~/components/SnackBar.vue'
 export default {
   components: {
     TheSnackbar,
+    SnackBar,
   },
   data() {
     return {
