@@ -1,14 +1,14 @@
 <template>
   <v-form v-model="valid">
     <v-text-field
-      v-model="userInfo.name"
+      v-model="userInfo.username"
       label="Name"
       :rules="[required('name')]"
-      v-if="hasName"
+      v-if="register"
     />
 
     <v-text-field
-      v-model="userInfo.identifier"
+      v-model="userInfo.email"
       label="Email"
       :rules="[required('email') /*emailFormat()*/]"
     />
@@ -46,7 +46,7 @@ export default {
   props: {
     submitForm: Function,
     buttonText: String,
-    hasName: { type: Boolean, default: false },
+    register: { type: Boolean, default: false },
   },
 }
 </script>

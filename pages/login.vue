@@ -15,21 +15,30 @@ export default {
   components: {
     UserAuthForm,
   },
+  middleware({ store, redirect, $auth }) {
+    // If the user is not authenticated
+    if ($auth.loggedIn) {
+      return redirect('/')
+    }
+  },
   methods: {
     async loginUser(loginInfo) {
       try {
-        await this.$auth.loginWith('local', {
-          data: loginInfo,
-        })
+        loginInfo.identifier = loginInfo.email
+        delete loginInfo.email
+        await this.$auth.loginWith('local', { data: loginInfo })
         this.$store.dispatch('snackbar/setSnackbar', {
-          text: `Thanks for signing in, ${this.$auth.user.name}`,
+          text: `Thanks for signing in, ${this.$auth.user.username}`,
         })
-        console.log('LoggedIn')
-        this.$router.push('/user')
-      } catch {
+
+        this.$router.push(
+          `/${this.$route.query.invitation ? this.$route.query.invitation : ''}`
+        )
+      } catch (error) {
+        console.log(error.message)
         this.$store.dispatch('snackbar/setSnackbar', {
           color: 'red',
-          text: 'There was an issue signing in.  Please try again.',
+          text: error.message,
         })
       }
     },

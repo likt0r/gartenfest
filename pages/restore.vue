@@ -1,16 +1,13 @@
 <template>
-  <v-container>
-    <h1>Register</h1>
-
-    <UserAuthForm
-      buttonText="Register"
-      :submitForm="registerUser"
-      :register="true"
-    />
+  <v-container class="fill-height" fluid>
+    <v-row align="center" justify="center">
+      <v-col cols="12" sm="8" md="4">
+        Wir senden dir eine Email mit einem Passwordreset-Link zu.
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
-//
 <script>
 import UserAuthForm from '@/components/UserAuthForm'
 
@@ -19,25 +16,29 @@ export default {
     UserAuthForm,
   },
   middleware({ store, redirect, $strapi }) {
+    // If the user is not authenticated
     if ($strapi.user) {
       return redirect('/')
     }
   },
   methods: {
-    async registerUser(registrationinfo) {
+    async loginUser(loginInfo) {
       try {
-        await this.$strapi.register(registrationinfo)
+        loginInfo.identifier = loginInfo.email
+        await this.$strapi.login(loginInfo)
         this.$store.dispatch('snackbar/setSnackbar', {
-          text: `Thanks for registrating in, ${this.$strapi.user}`,
+          text: `Thanks for signing in, ${this.$strapi.user.username}`,
         })
         this.$store.dispatch('user/login', this.$strapi.user)
+
         this.$router.push(
           `/${this.$route.query.invitation ? this.$route.query.invitation : ''}`
         )
       } catch (error) {
+        console.log(error.message)
         this.$store.dispatch('snackbar/setSnackbar', {
           color: 'red',
-          text: 'There was an issue signing up.  Please try again.',
+          text: error.message,
         })
       }
     },

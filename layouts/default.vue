@@ -1,5 +1,11 @@
 <template>
   <v-app dark>
+    <div v-if="loggedIn">
+      <v-system-bar window dark>
+        <v-spacer></v-spacer>
+        <span @click="logout()" v-ripple>Ausloggen</span>
+      </v-system-bar>
+    </div>
     <v-main>
       <nuxt />
     </v-main>
@@ -43,10 +49,16 @@ export default {
       title: 'Vuetify.js',
     }
   },
+  computed: {
+    loggedIn() {
+      return this.$store.state.user.loggedIn
+    },
+  },
+  mounted() {},
   methods: {
     async logout() {
-      await this.$auth.logout()
-      this.$router.push('/')
+      this.$auth.logout()
+      this.$router.go()
     },
   },
 }

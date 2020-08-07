@@ -53,7 +53,6 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/strapi',
   ],
 
   /*
@@ -105,18 +104,12 @@ export default {
           maxAge: 60,
           // type: 'Bearer'
         },
-        refreshToken: {
-          property: 'refresh_token',
-          data: 'refresh_token',
-          maxAge: 60 * 60 * 24 * 30,
-        },
         endpoints: {
           login: {
-            url: process.env.API_URL || 'http://localhost:1337/auth/local',
+            url: `${process.env.API_URL || 'http://localhost:1337'}/auth/local`,
             method: 'post',
             propertyName: 'token',
           },
-          user: false, //{ url: '/api/auth/user', method: 'get', propertyName: 'user' },
         },
         // tokenRequired: true,
         // tokenType: 'bearer',

@@ -6,7 +6,7 @@
       :timeout="snackbar.timeout"
       v-model="getModel().showing"
       :color="snackbar.color"
-      :style="`bottom: ${index * 60 + 8}px`"
+      :style="`top: ${index * 60 + 8}px`"
     >
       {{ snackbar.text }}
 
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     getModel(id) {
-      return {  
+      return {
         showing: {
           get() {
             return true
