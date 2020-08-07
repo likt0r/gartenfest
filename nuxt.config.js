@@ -60,13 +60,9 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'http://localhost:1337/',
+    baseURL: `${process.env.API_URL || 'http://localhost:1337'}`,
   },
 
-  strapi: {
-    url: process.env.STRAPI_URL || 'http://localhost:1337',
-    entities: ['invitations', 'tickets'],
-  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -97,28 +93,34 @@ export default {
   serverMiddleware: [],
   auth: {
     strategies: {
+      // scheme: 'refresh',
+      // token: {
+      //   property: 'access_token',
+      //   maxAge: 60,
+      //   // type: 'Bearer'
+      // },
+      // refreshToken: {
+      //   property: 'refresh_token',
+      //   data: 'refresh_token',
+      //   maxAge: 60 * 60 * 24 * 30,
+      // },
+      redirect: {
+        login: '/login',
+        logout: '/',
+        callback: '/login',
+        home: '/',
+      },
       local: {
-        scheme: 'refresh',
-        token: {
-          property: 'access_token',
-          maxAge: 60,
-          // type: 'Bearer'
-        },
         endpoints: {
           login: {
-            url: `${process.env.API_URL || 'http://localhost:1337'}/auth/local`,
+            url: `/auth/local`,
             method: 'post',
-            propertyName: 'token',
+            propertyName: 'jwt',
           },
+          user: false,
+          logout: false,
         },
-        // tokenRequired: true,
-        // tokenType: 'bearer',
-        // globalToken: true,
-        // autoFetchUser: true
       },
     },
-  },
-  env: {
-    strapiBaseUri: process.env.API_URL || 'http://localhost:1337',
   },
 }

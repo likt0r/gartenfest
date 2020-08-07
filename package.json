@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "dev:spa": "nuxt --spa",
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
     "export": "nuxt-ts export",

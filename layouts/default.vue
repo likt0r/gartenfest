@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <div v-if="loggedIn">
+    <div v-if="$auth.loggedIn">
       <v-system-bar window dark>
         <v-spacer></v-spacer>
         <span @click="logout()" v-ripple>Ausloggen</span>
@@ -49,11 +49,7 @@ export default {
       title: 'Vuetify.js',
     }
   },
-  computed: {
-    loggedIn() {
-      return this.$store.state.user.loggedIn
-    },
-  },
+  computed: {},
   mounted() {},
   methods: {
     async logout() {
