@@ -1,12 +1,33 @@
 <template>
-  <v-container>
-    <h1>Register</h1>
-
-    <UserAuthForm
-      buttonText="Register"
-      :submitForm="registerUser"
-      :register="true"
-    />
+  <v-container class="fill-height" fluid>
+    <v-row align="center" justify="center">
+      <v-col cols="12" sm="8" md="6">
+        <v-flex row justify-start align-baseline class="mb-8 mx-0">
+          <v-btn
+            class="mr-3"
+            fab
+            dark
+            floating
+            small
+            color="primary"
+            @click="goBack"
+            nuxt
+          >
+            <v-icon
+              class="lighten-1 white--text"
+              v-text="'mdi-arrow-left'"
+            ></v-icon>
+          </v-btn>
+          <h1>{{ $t('register') }}</h1>
+        </v-flex>
+        <p>{{ $t('coronaInfo') }}</p>
+        <UserAuthForm
+          buttonText="Register"
+          :submitForm="registerUser"
+          :register="true"
+        />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -17,6 +38,14 @@ import UserAuthForm from '@/components/UserAuthForm'
 export default {
   components: {
     UserAuthForm,
+  },
+  data: function () {
+    return {
+      contactInfo: {
+        adresse: '',
+        tel: '',
+      },
+    }
   },
   middleware({ store, redirect, $auth }) {
     if ($auth.loggedIn) {
@@ -30,9 +59,6 @@ export default {
         this.$store.dispatch('snackbar/setSnackbar', {
           text: `Thanks for registrating in, ${this.$auth.user}`,
         })
-        this.$router.push(
-          `/${this.$route.query.invitation ? this.$route.query.invitation : ''}`
-        )
       } catch (error) {
         this.$store.dispatch('snackbar/setSnackbar', {
           color: 'red',
@@ -42,6 +68,12 @@ export default {
               : error.response.data.message[0].messages[0].message,
         })
       }
+      goBack()
+    },
+    goBack() {
+      this.$router.push(
+        `/${this.$route.query.invitation ? this.$route.query.invitation : ''}`
+      )
     },
   },
 }

@@ -1,9 +1,17 @@
 <template>
   <v-app dark>
     <div v-if="$auth.loggedIn">
-      <v-system-bar window dark>
+      <v-system-bar window dark fixed>
+        <nuxt-link to="/profile">
+          <v-icon class="lighten-1 white--text" v-ripple
+            >mdi-account-circle-outline</v-icon
+          >
+        </nuxt-link>
+
         <v-spacer></v-spacer>
-        <span @click="logout()" v-ripple>Ausloggen</span>
+        <span @click="logout()" v-ripple class="lighten-1 primary--text"
+          >Ausloggen</span
+        >
       </v-system-bar>
     </div>
     <TheSnackbar />

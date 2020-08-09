@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import i18n from './i18n'
 export default {
   /*
    ** Nuxt rendering mode
@@ -53,7 +54,10 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    'nuxt-i18n',
   ],
+
+  i18n,
 
   /*
    ** Axios module configuration
@@ -110,6 +114,7 @@ export default {
         callback: '/login',
         home: '/',
       },
+      autoFetchUser: true,
       local: {
         endpoints: {
           login: {
@@ -117,7 +122,11 @@ export default {
             method: 'post',
             propertyName: 'jwt',
           },
-          user: false,
+          user: {
+            url: `/me`,
+            method: 'get',
+            propertyName: false,
+          },
           logout: false,
         },
       },
