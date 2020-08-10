@@ -3,8 +3,20 @@
     <v-row align="start" justify="center">
       <v-col cols="12" sm="8" md="6">
         <v-flex row justify-start align-baseline class="mb-8 mx-0">
-          <v-btn class="mr-3" fab dark floating small color="primary" to="/" nuxt>
-            <v-icon class="lighten-1 white--text" v-text="'mdi-arrow-left'"></v-icon>
+          <v-btn
+            class="mr-3"
+            fab
+            dark
+            floating
+            small
+            color="primary"
+            to="/"
+            nuxt
+          >
+            <v-icon
+              class="lighten-1 white--text"
+              v-text="'mdi-arrow-left'"
+            ></v-icon>
           </v-btn>
 
           <div>
@@ -15,8 +27,18 @@
             </h3>
           </div>
         </v-flex>
-
-        <div v-if="event.description" class="mb-2" v-html="toHTML(event.description)"></div>
+        <v-img
+          v-if="event.image"
+          :aspect-ratio="16 / 9"
+          :src="`${$axios.defaults.baseURL}${event.image.url}`"
+          class="mb-4"
+        >
+        </v-img>
+        <div
+          v-if="event.description"
+          class="mb-2"
+          v-html="toHTML(event.description)"
+        ></div>
         <div v-if="event.directions" v-html="toHTML(event.directions)"></div>
         <div class="mb-2" v-if="location.view">
           <leaflet :options="location" :markers="markers"></leaflet>
@@ -32,44 +54,44 @@ import showdown from 'showdown'
 showdown.setOption('noHeaderId', 'true')
 const converter = new showdown.Converter()
 export default {
-	middleware: 'auth',
-	components: {
-		Leaflet,
-	},
-	data() {
-		return {
-			invitation: null,
-		}
-	},
+  middleware: 'auth',
+  components: {
+    Leaflet,
+  },
+  data() {
+    return {
+      invitation: null,
+    }
+  },
 
-	methods: {
-		toHTML(markdown) {
-			return converter.makeHtml(markdown)
-		},
-	},
-	async asyncData({ params, $axios }) {
-		try {
-			const { data: event } = await $axios.get(`/events/${params.eventId}`)
-			return {
-				event,
-				location: { view: event.location },
-				markers: [{ position: event.location }],
-			}
-		} catch (error) {
-			setTimeout(() => {
-				store.dispatch('snackbar/showError', error), redirect('/')
-			}, 0)
-			return { event: null, location: null, markers: null }
-		}
-		console.log(event)
-		return {}
-	},
+  methods: {
+    toHTML(markdown) {
+      return converter.makeHtml(markdown)
+    },
+  },
+  async asyncData({ params, $axios }) {
+    try {
+      const { data: event } = await $axios.get(`/events/${params.eventId}`)
+      return {
+        event,
+        location: { view: event.location },
+        markers: [{ position: event.location }],
+      }
+    } catch (error) {
+      setTimeout(() => {
+        store.dispatch('snackbar/showError', error), redirect('/')
+      }, 0)
+      return { event: null, location: null, markers: null }
+    }
+    console.log(event)
+    return {}
+  },
 }
 </script>
 <style scoped>
 @import url('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css');
 #leaflet {
-	width: 100%;
-	height: 220px !important;
+  width: 100%;
+  height: 220px !important;
 }
 </style>
