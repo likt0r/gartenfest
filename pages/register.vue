@@ -41,16 +41,10 @@ export default {
 			try {
 				await this.$axios.post('/auth/local/register', registrationinfo)
 				this.$store.dispatch('snackbar/setSnackbar', {
-					text: `Thanks for registrating in, ${this.$auth.user}`,
+					message: `Thanks for registrating in, ${this.$auth.user}`,
 				})
 			} catch (error) {
-				this.$store.dispatch('snackbar/setSnackbar', {
-					color: 'red',
-					message:
-						typeof error.response.data.message === 'string'
-							? error.response.data.message
-							: error.response.data.message[0].messages[0].message,
-				})
+				this.$store.dispatch('snackbar/showError', error)
 			}
 			this.goBack()
 		},
