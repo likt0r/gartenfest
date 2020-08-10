@@ -30,7 +30,7 @@
         <v-img
           v-if="event.image"
           :aspect-ratio="16 / 9"
-          :src="`${$axios.defaults.baseURL}${event.image.url}`"
+          :src="getImageUrl(event.image.url, $axios.defaults.baseURL)"
           class="mb-4"
         >
         </v-img>
@@ -65,6 +65,9 @@ export default {
   },
 
   methods: {
+    getImageUrl(path, host) {
+      return new URL(path, host).href
+    },
     toHTML(markdown) {
       return converter.makeHtml(markdown)
     },

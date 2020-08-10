@@ -72,7 +72,7 @@ export default {
     this.userInfo = {
       email: '' + this.$auth.user.email,
       username: '' + this.$auth.user.username,
-      address: '' + this.$auth.user.address,
+      address: '' + this.$auth.user.address ? this.$auth.user.address : '',
       tel: '' + this.$auth.user.tel,
     }
   },

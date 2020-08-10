@@ -19,6 +19,8 @@ module.exports = {
         confirmed: 'Danke deine E-Mail-Adresse  ist bestätigt.',
         confirmedMessage:
           'Gehe nun zu deiner Einladung und reserviere Dir ein Ticket',
+        registerMessage:
+          'Du solltest nun eine Email erhalten mit einen aktivierungs link. Bitte überpüfe auch deine SPAM ordner falls du keine email erhalten solltest.',
       },
     },
   },
