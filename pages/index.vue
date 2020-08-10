@@ -168,10 +168,7 @@ export default {
       try {
         await this.$axios.$delete(`/tickets/${this.deleteId}`)
       } catch (error) {
-        this.$store.dispatch('snackbar/setSnackbar', {
-          color: 'red',
-          message: error.response.data.message,
-        })
+        this.$store.dispatch('snackbar/showError', error)
       }
       this.dialog = false
       this.reloadData()
@@ -182,10 +179,7 @@ export default {
         console.log('result', result)
         this.data = result
       } catch (error) {
-        this.$store.dispatch('snackbar/setSnackbar', {
-          message: 'red',
-          text: error.response.data.message,
-        })
+        this.$store.dispatch('snackbar/showError', error)
       }
     },
     gotoEvent(eventId) {

@@ -93,10 +93,7 @@ export default {
           event: this.invitation.event.id,
         })
       } catch (error) {
-        this.$store.dispatch('snackbar/setSnackbar', {
-          color: 'red',
-          text: error.response.data.message,
-        })
+        this.$store.dispatch('snackbar/showError', error)
       }
       this.$router.push('/')
     },
