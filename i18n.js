@@ -12,9 +12,13 @@ module.exports = {
         yourProfile: `Dein Profil`,
         welcomeText: `hier findest du deine Tickets und deine Plätze auf der Warteliste.
 		Sobald du ein Ticket besitzt kannst du mehr informationen über die
-    Veranstaltung abrufen.`,
+    Veranstaltung abrufen.
+    Tickets bekommst du nur über einen Einladungs-Link.`,
         register: `Registriere Dich:`,
         login: 'Login: ',
+        confirmed: 'Danke deine E-Mail-Adresse  ist bestätigt.',
+        confirmedMessage:
+          'Gehe nun zu deiner Einladung und reserviere Dir ein Ticket',
       },
     },
   },
