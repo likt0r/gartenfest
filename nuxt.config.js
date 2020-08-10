@@ -65,7 +65,7 @@ export default {
    */
   axios: {
     baseURL: `${
-      process.env.API_URL || 'https://gartenfest-api.herokuapp.com/'
+      process.env.API_URL || 'http://localhost:1337' //'https://gartenfest-api.herokuapp.com/'
     }`,
   },
 
@@ -125,7 +125,7 @@ export default {
             propertyName: 'jwt',
           },
           user: {
-            url: `/me`,
+            url: `/users/me`,
             method: 'get',
             propertyName: false,
           },
