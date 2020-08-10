@@ -64,7 +64,9 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: `${process.env.API_URL || 'http://localhost:1337'}`,
+    baseURL: `${
+      process.env.API_URL || 'https://gartenfest-api.herokuapp.com/'
+    }`,
   },
 
   /*
