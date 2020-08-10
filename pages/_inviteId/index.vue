@@ -76,13 +76,13 @@ export default {
 			const { data: invitation } = await $axios.get(
 				`/invitations/${params.inviteId}`
 			)
+			return { invitation }
 		} catch (error) {
 			setTimeout(() => {
 				store.dispatch('snackbar/showError', error), redirect('/')
 			}, 0)
 			return { invitation: null }
 		}
-		return { invitation }
 	},
 }
 </script>
