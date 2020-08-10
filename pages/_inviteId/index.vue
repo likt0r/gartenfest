@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height" fluid>
-    <v-row align="center" justify="center">
+    <v-row align="center" justify="center" v-if="invitation">
       <v-col cols="12" sm="10" md="10" class="text-center">
         <h1>{{ invitation.event.name }}</h1>
         <h2>von {{ new Date(invitation.event.startDate).toLocaleDateString() }} bis {{ new Date(invitation.event.endDate).toLocaleDateString() }}</h2>
@@ -36,6 +36,7 @@
   </v-container>
 </template>
 <script>
+import Vue from 'vue'
 import axios from 'axios'
 import showdown from 'showdown'
 showdown.setOption('noHeaderId', 'true')
@@ -70,11 +71,17 @@ export default {
 			this.$router.push('/')
 		},
 	},
-	async asyncData({ params, $axios }) {
-		const { data: invitation } = await $axios.get(
-			`/invitations/${params.inviteId}`
-		)
-		console.log(invitation)
+	async asyncData({ params, $axios, redirect, store }) {
+		try {
+			const { data: invitation } = await $axios.get(
+				`/invitations/${params.inviteId}`
+			)
+		} catch (error) {
+			setTimeout(() => {
+				store.dispatch('snackbar/showError', error), redirect('/')
+			}, 0)
+			return { invitation: null }
+		}
 		return { invitation }
 	},
 }
