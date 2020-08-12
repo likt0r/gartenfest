@@ -12,10 +12,11 @@ export const mutations = {
 }
 
 export const actions = {
-  setSnackbar({ commit }, { message, color }) {
+  setSnackbar({ commit }, { message, color, timeout }) {
     const snack = {
       message,
       color: color || 'success',
+      timeout: timeout,
     }
     commit('SET_SNACK', snack)
   },

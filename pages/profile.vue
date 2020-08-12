@@ -26,6 +26,7 @@
             v-model="userInfo.email"
             disabled
             label="Email"
+            type="email"
             :rules="[required('email') /*emailFormat()*/]"
           />
           <v-text-field
@@ -34,7 +35,7 @@
             :rules="[required('name')]"
           />
           <v-text-field v-model="userInfo.address" label="Adresse" />
-          <v-text-field v-model="userInfo.tel" label="Telefon" />
+          <v-text-field type="tel" v-model="userInfo.tel" label="Telefon" />
 
           <v-row justify="space-between" class="align-baseline ml-0 mt-4">
             <v-btn text @click="sendResetEmail()"></v-btn>

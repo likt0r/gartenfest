@@ -7,11 +7,17 @@
       v-if="register"
     />
     <v-text-field v-if="register" v-model="userInfo.address" label="Adresse" />
-    <v-text-field v-if="register" v-model="userInfo.tel" label="Telefon" />
+    <v-text-field
+      v-if="register"
+      type="tel"
+      v-model="userInfo.tel"
+      label="Telefon"
+    />
 
     <v-text-field
       v-model="userInfo.email"
       label="Email"
+      type="email"
       :rules="[required('email') /*emailFormat()*/]"
     />
 
@@ -22,10 +28,22 @@
       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
       @click:append="showPassword = !showPassword"
       counter="true"
-      :rules="[required('password'), minLength('password', 8)]"
+      :rules="[required('password'), minLength('password', 4)]"
+    />
+    <v-text-field
+      v-if="register"
+      v-model="userInfo.retype"
+      label="Retype password"
+      :type="showPassword ? 'text' : 'password'"
+      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+      @click:append="showPassword = !showPassword"
+      counter="true"
     />
     <v-row justify="space-between" class="align-baseline ml-0 mt-4">
-      <v-btn @click="submitForm(userInfo)" :disabled="!valid">
+      <v-btn
+        @click="submitForm(userInfo)"
+        :disabled="!valid || (register && userInfo.retype != userInfo.password)"
+      >
         {{ buttonText }}
       </v-btn>
       <v-btn text v-if="!register" @click="resetDialog = true">
@@ -74,6 +92,7 @@ export default {
       userInfo: {
         identifier: '',
         password: '',
+        retype: '',
         tel: '',
         adress: '',
       },

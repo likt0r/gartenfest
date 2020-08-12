@@ -41,6 +41,7 @@ export default {
   },
   data: function () {
     return {
+      showForm: true,
       contactInfo: {
         adresse: '',
         tel: '',
@@ -55,11 +56,14 @@ export default {
   methods: {
     async registerUser(registrationinfo) {
       try {
+        this.showForm = false
         await this.$axios.post('/auth/local/register', registrationinfo)
         this.$store.dispatch('snackbar/setSnackbar', {
           message: this.$i18n.t('registerMessage'),
+          timeout: -1,
         })
       } catch (error) {
+        this.showForm = true
         this.$store.dispatch('snackbar/showError', error)
       }
       this.goBack()

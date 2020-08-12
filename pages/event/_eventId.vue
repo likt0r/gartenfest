@@ -2,7 +2,7 @@
   <v-container class="fill-height" fluid>
     <v-row align="start" justify="center">
       <v-col cols="12" sm="8" md="6">
-        <v-flex row justify-start align-baseline class="mb-8 mx-0">
+        <v-flex row justify-start align-baseline class="mb-8 mx-0 mt-2">
           <v-btn
             class="mr-3"
             fab
