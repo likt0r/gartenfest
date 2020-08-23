@@ -67,6 +67,13 @@
                     ></v-simple-checkbox>
                   </template> </v-data-table
               ></v-card-text>
+              <v-card-actions>
+                <v-btn
+                  :href="getCSVData(ticketMap[invitation.id])"
+                  :download="`${event.name}-${invitation.channel}.csv`"
+                  >Download</v-btn
+                >
+              </v-card-actions>
             </v-card>
           </v-tab-item>
         </v-tabs-items>
@@ -77,7 +84,7 @@
 
 <script>
 export default {
-  middleware: ['auth'],
+  middleware: ['auth', 'is-admin'],
 
   async asyncData({ params, $axios }) {
     const { data: events } = await $axios.get(`/events`)
@@ -131,6 +138,30 @@ export default {
     openTicketDetails(event) {
       this.$router.push('/admin/ticket/' + event.id)
     },
+    getCSVData(tickets) {
+      console.log(tickets)
+      const content = tickets
+        .map((ticket) =>
+          [
+            ticket.guestInfo.username
+              ? ticket.guestInfo.username.replace(/;/g, ',')
+              : null,
+            ticket.guestInfo.email,
+            ticket.guestInfo.address
+              ? ticket.guestInfo.address.replace(/;/g, ',')
+              : null,
+            ticket.guestInfo.tel
+              ? ticket.guestInfo.tel.replace(/;/g, ',')
+              : null,
+            ,
+          ].join(';')
+        )
+        .join('\n')
+      console.log(content)
+      const data = new Blob([content], { type: 'text/csv;charset=utf-8;' })
+      return URL.createObjectURL(data)
+    },
+    addDownloadUrls() {},
   },
   mounted() {},
 }

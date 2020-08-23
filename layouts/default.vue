@@ -7,7 +7,11 @@
             >mdi-account-circle-outline</v-icon
           >
         </nuxt-link>
-
+        <nuxt-link to="/admin" v-if="isAdmin">
+          <v-icon class="lighten-1 white--text" v-ripple
+            >mdi-head-lightbulb-outline</v-icon
+          >
+        </nuxt-link>
         <v-spacer></v-spacer>
         <span @click="logout()" v-ripple class="lighten-1 primary--text"
           >Ausloggen</span
@@ -55,7 +59,11 @@ export default {
       title: 'Vuetify.js',
     }
   },
-  computed: {},
+  computed: {
+    isAdmin() {
+      return this.$store.state.auth.user.role.type === 'admin'
+    },
+  },
   mounted() {},
   methods: {
     async logout() {
