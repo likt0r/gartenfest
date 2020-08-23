@@ -62,11 +62,11 @@ export default {
           message: this.$i18n.t('registerMessage'),
           timeout: -1,
         })
+        // his.goBack()
       } catch (error) {
         this.showForm = true
         this.$store.dispatch('snackbar/showError', error)
       }
-      this.goBack()
     },
     goBack() {
       this.$router.push(

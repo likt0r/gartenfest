@@ -22,7 +22,7 @@ export const actions = {
   },
   showError({ commit }, error) {
     console.log('Show error')
-    if (error.response.status === 404) {
+    if (error.response && error.response.status === 404) {
       commit('SET_SNACK', {
         color: 'red',
         message: 'Diese Seite konnte nicht gefunden werden',
