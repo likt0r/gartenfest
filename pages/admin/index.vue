@@ -88,7 +88,9 @@ export default {
 
   async asyncData({ params, $axios }) {
     const { data: events } = await $axios.get(`/events`)
-    const { data: users } = await $axios.get(`/users`)
+    const { data: count } = await $axios.get(`/users/count#${Date.now()}`)
+
+    const { data: users } = await $axios.get(`/users?_limit=${count}`)
 
     const userMap = users.reduce((acc, user) => {
       acc[user.id] = user
@@ -139,7 +141,7 @@ export default {
       this.$router.push('/admin/ticket/' + event.id)
     },
     getCSVData(tickets) {
-      console.log(tickets)
+      //console.log(tickets)
       const content = tickets
         .map((ticket) =>
           [
@@ -157,7 +159,7 @@ export default {
           ].join(';')
         )
         .join('\n')
-      console.log(content)
+      //console.log(content)
       const data = new Blob([content], { type: 'text/csv;charset=utf-8;' })
       return URL.createObjectURL(data)
     },
